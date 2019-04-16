@@ -96,7 +96,11 @@ class KeyVault(object):
                     resource=self.AUTH_RESOURCE
                 )
             except AuthenticationError:
-                raise KeyVaultAuthenticationError('Error authenticating')
+                message = f'Error authenticating with client_id ' \
+                          f'{self.client_id[0]}***{self.client_id[-1]}, ' \
+                          f'secret {self.secret[0]}***{self.secret[-1]}, ' \
+                          f'tenant {self.tenant[0]}***{self.tenant[-1]}.'
+                raise KeyVaultAuthenticationError(message)
 
         return credentials
 
